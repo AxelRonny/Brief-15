@@ -38,19 +38,19 @@
     - name: Create a directory
       become: yes
       file:
-        path: /home/momo/.kube
+        path: /home/axel/.kube
         state: directory
         mode: '0755'
 
     - name: Copy admin.conf to .kube/config
       shell: sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
       environment:
-        HOME: /home/momo/
+        HOME: /home/axel/
 
     - name: Change ownership of .kube/config
-      shell: sudo chown momo:momo $HOME/.kube/config
+      shell: sudo chown axel:axel $HOME/.kube/config
       environment:
-        HOME: /home/momo/
+        HOME: /home/axel/
         
     - name: Download Calico manifest
       get_url:
@@ -58,6 +58,6 @@
         dest: "/tmp/calico.yaml"
 
     - name: Apply Calico manifest
-      become_user: momo
+      become_user: axel
       command: kubectl apply -f /tmp/calico.yaml
 
